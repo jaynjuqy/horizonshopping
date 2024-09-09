@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from pathlib import Path
 from datetime import timedelta
-
+import cloudinary
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'authorizer',
     'api',
@@ -83,8 +84,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'horizondb',
         'USER': 'voidbyte',
-        'PASSWORD': 'null_byte.101',
-        'HOST': 'localhost',
+        'PASSWORD': 'NIYdpQsEnIHvuz6L4aci71jzJjAxxyI0',
+        'HOST': 'dpg-crfe1s5svqrc73f7kk8g-a',
         'PORT': '5432'
     }
 }
@@ -139,11 +140,11 @@ CORS_ALLOW_CREDENTIALS = True
 STATIC_URL = 'static/'
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dns2laxly',
-    'API_KEY': '455753685894149',
-    'API_SECRET': 'oibNHly6iCIW7vrkSIOpuJA_aBA',
-}
+cloudinary.config(
+    cloud_name='dns2laxly',
+    api_key='455753685894149',
+    api_secret='oibNHly6iCIW7vrkSIOpuJA_aBA',
+)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
@@ -158,6 +159,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY, 
     'AUTH_HEADER_TYPES': ('Bearer',),
@@ -165,3 +167,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=30),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
+
+PAYPAL_CLIENT_ID = "ARh9CiCmoTWCV4rvj4qombwHmqn9up6IRVvv9XLs236D_sMCx35iSHRr5SeXx_fyCLSNsRLd6fGqeKvf"
+PAYPAL_CLIENT_SECRET = "ENf6nwILpqN6MZNLCj1n6NxyU4QOvEo_Rj6NlbNwR7thpFRlqJO2UFNpIYLGmretnqfEjJmZmWx77vue"
