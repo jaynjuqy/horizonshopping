@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import cloudinary
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -141,9 +142,9 @@ STATIC_URL = 'static/'
 
 
 cloudinary.config(
-    cloud_name='dns2laxly',
-    api_key='455753685894149',
-    api_secret='oibNHly6iCIW7vrkSIOpuJA_aBA',
+    cloud_name=os.environ.get('CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
 )
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -168,5 +169,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
 
-PAYPAL_CLIENT_ID = "ARh9CiCmoTWCV4rvj4qombwHmqn9up6IRVvv9XLs236D_sMCx35iSHRr5SeXx_fyCLSNsRLd6fGqeKvf"
-PAYPAL_CLIENT_SECRET = "ENf6nwILpqN6MZNLCj1n6NxyU4QOvEo_Rj6NlbNwR7thpFRlqJO2UFNpIYLGmretnqfEjJmZmWx77vue"
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET')
